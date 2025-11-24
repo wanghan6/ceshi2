@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【专业版】你的教育方式，正在伤害孩子吗？家长类型深度测评</title>
+    <style>
+        :root {
+            --primary-color: #E65100; /* 警示橙 */
+            --secondary-color: #FFF3E0;
+            --text-color: #333;
+            --accent-color: #2E7D32; /* 治愈绿 */
+            --bg-color: #FAFAFA;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 封面页样式 */
+        .landing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .landing-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .pain-points {
+            text-align: left;
+            background: var(--secondary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .pain-points li {
+            margin-bottom: 8px;
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: transform 0.1s;
+            box-shadow: 0 4px 10px rgba(230, 81, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* 答题页样式 */
+        #quiz-container {
+            display: none;
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        
+        .nav-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #ddd;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            animation: fadeIn 0.3s;
+        }
+
+        .question-text {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            line-height: 1.4;
+        }
+
+        .option-btn:hover, .option-btn:active {
+            background: var(--secondary-color);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* 结果页样式 */
+        #result-container {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .result-type {
+            font-size: 28px;
+            color: var(--primary-color);
+            font-weight: 900;
+            margin: 10px 0;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-weight: bold;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .quote-box {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .harm-analysis {
+            color: #D32F2F;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .advice-box {
+            background: #E8F5E9;
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--accent-color);
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #333 0%, #000 100%);
+            color: #FFD700;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .cta-text {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .wechat-copy-btn {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+            padding-bottom: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div id="landing-page" class="landing-card">
+        <div class="landing-title">你的教育方式<br>正在<span class="highlight">伤害</span>孩子吗？</div>
+        <p style="font-size: 14px; color: #666;">专业版深度测评 · 50道全场景模拟</p>
+        
+        <div class="pain-points">
+            <ul>
+                <li>❌ 为什么孩子在学校很乖，回家却像变了个人？</li>
+                <li>❌ 为什么你付出了一切，他却说“很压抑”？</li>
+                <li>❌ 萨提亚模式深度诊断，揭开亲子关系的真相。</li>
+            </ul>
+        </div>
+        
+        <p style="font-size: 15px; margin-bottom: 25px;">
+            这不是一个简单的测试。<br>
+            这是一次关于你和孩子的<strong>心灵体检</strong>。<br>
+            <span style="font-size:12px; color:#999;">预计耗时：8-10分钟</span>
+        </p>
+        
+        <button class="btn" onclick="startQuiz()">开始深度诊断</button>
+    </div>
+
+    <div id="quiz-container">
+        <div class="quiz-nav">
+            <button id="prev-btn" class="nav-btn" onclick="prevQuestion()" style="visibility: hidden;">&lt; 上一题</button>
+            <div style="color: #999;">第 <span id="curr-num">1</span>/50 题</div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+        <div class="question-card">
+            <div class="question-text" id="question-text">题目加载中...</div>
+            <div id="options-container"></div>
+        </div>
+        <div style="text-align: center; color: #999; font-size: 12px; margin-top: 20px;">
+            慧敏老师 · 亲子关系修复工作室
+        </div>
+    </div>
+
+    <div id="result-container">
+        <div class="result-header">
+            <p>诊断报告已生成</p>
+            <div class="result-type" id="result-title"></div>
+        </div>
+
+        <div class="result-card">
+            <div class="section-title">你的口头禅</div>
+            <div class="quote-box" id="result-quotes"></div>
+
+            <div class="section-title">深度分析：对孩子的伤害</div>
+            <div class="harm-analysis" id="result-harm"></div>
+
+            <div class="advice-box">
+                💡 <strong>慧敏老师建议：</strong><br>
+                <span id="result-advice"></span>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <div class="cta-text" id="cta-text"></div>
+            <div style="font-size: 12px; margin-bottom: 10px; opacity: 0.8;">点击下方复制微信号，去微信粘贴</div>
+            <button class="wechat-copy-btn" onclick="copyWechat()">复制慧敏老师微信号</button>
+            <div style="margin-top: 10px; font-size: 12px; color: #fff;">
+                添加后回复暗号：<span id="cta-code" style="color: #FFD700; font-weight: bold;"></span>
+            </div>
+        </div>
+
+        <div class="footer">
+            慧敏老师 | 资深家庭教育指导师<br>
+            Copyright © 2023-2025
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // 50道海量题库
+    // Type: 1=控制, 2=焦虑, 3=放任, 4=民主, 5=理想
+    const questions = [
+        // --- 原有基础题 (1-10) ---
+        {
+            q: "1. 晚上10点了，孩子还在磨蹭玩手机不肯去洗澡睡觉，你会？",
+            options: [
+                { text: "拔路由器或抢走手机：“再不睡手机没收一个月！”", type: 1 },
+                { text: "碎碎念：“明天起不来上学迟到怎么办？身体熬坏了怎么办？”", type: 2 },
+                { text: "叹口气，随他去吧，反正说了也不听。", type: 3 },
+                { text: "提醒约定：“我们约好10点关机，现在请你自己执行。”", type: 4 },
+                { text: "摸摸头：“我看你舍不得放下，是不是游戏正到关键时刻？”", type: 5 }
+            ]
+        },
+        {
+            q: "2. 孩子期中考试成绩下滑严重，拿着试卷回家，你会？",
+            options: [
+                { text: "“考成这个鬼样子？这周末哪也别想去，抄错题100遍！”", type: 1 },
+                { text: "“哎呀这可怎么办，隔壁小明考了第一，你以后能干什么啊？”", type: 2 },
+                { text: "“哦，知道了，下次努力吧。”（无眼神交流）", type: 3 },
+                { text: "“来分析一下，是题目太难还是复习没到位？制定个计划。”", type: 4 },
+                { text: "“我看你表情很难过，考砸了没关系，妈妈陪你一起看看。”", type: 5 }
+            ]
+        },
+        {
+            q: "3. 孩子想买一双很贵的球鞋，远超你的预算，你会？",
+            options: [
+                { text: "“小小年纪学会攀比？没门！想都别想。”", type: 1 },
+                { text: "“爸妈赚钱这么辛苦都是为了你，你怎么这么不懂事...”", type: 2 },
+                { text: "“行吧行吧，买买买，别来烦我。”", type: 3 },
+                { text: "“鞋很酷，但超支了，如果你愿做家务赚钱，我们各出一半。”", type: 4 },
+                { text: "“真帅！理解你想有面子。但预算有限，我们一起存钱买好吗？”", type: 5 }
+            ]
+        },
+        {
+            q: "4. 孩子放学回家摔门，看起来很生气，你会？",
+            options: [
+                { text: "“发什么神经？在外面受气回家撒野？有没有教养！”", type: 1 },
+                { text: "“怎么了？被欺负了？老师骂你了？快告诉妈妈！”", type: 2 },
+                { text: "假装没看见，避免引火烧身。", type: 3 },
+                { text: "等吃饭时问：“你今天情绪看起来不稳定，需要聊聊吗？”", type: 4 },
+                { text: "送杯热牛奶，留纸条：“看你心情不好，想说是随时找我。”", type: 5 }
+            ]
+        },
+        {
+            q: "5. 全家吃饭，孩子想吃披萨，你想吃中餐，你会？",
+            options: [
+                { text: "“吃什么披萨，垃圾食品！听我的，去吃粤菜。”", type: 1 },
+                { text: "“披萨上火，上火就要去医院，还是喝粥对身体好。”", type: 2 },
+                { text: "“随便，你们定，我无所谓。”", type: 3 },
+                { text: "“要不投票决定？或者这周听你的，下周听我的。”", type: 4 },
+                { text: "“知道你馋披萨了。今天满足你，晚上回家再煮点青菜平衡。”", type: 5 }
+            ]
+        },
+        {
+            q: "6. 发现孩子把房门锁上了，并在里面写日记，你会？",
+            options: [
+                { text: "强行要求打开：“对我没有秘密，锁门就是心里有鬼！”", type: 1 },
+                { text: "在门口徘徊，反复问：“你在干嘛？没做坏事吧？”", type: 2 },
+                { text: "锁就锁吧，我也乐得清静。", type: 3 },
+                { text: "敲门：“为什么锁门？如果需要独处空间可以告诉我。”", type: 4 },
+                { text: "尊重界限：“这是你的私人空间，妈妈尊重你。”", type: 5 }
+            ]
+        },
+        {
+            q: "7. 孩子交了一个看起来“不太爱学习”的朋友，你会？",
+            options: [
+                { text: "严厉禁止：“不许来往，近朱者赤近墨者黑！”", type: 1 },
+                { text: "忧心忡忡：“那孩子看起来不像好人，你会不会被带坏？”", type: 2 },
+                { text: "只要不惹事，交什么朋友是他的自由。", type: 3 },
+                { text: "探讨：“你欣赏他哪一点？交友要有自己的判断标准。”", type: 4 },
+                { text: "邀请朋友来家里，侧面观察并引导孩子建立交友观。", type: 5 }
+            ]
+        },
+        {
+            q: "8. 孩子主动洗碗，结果打碎了一个盘子，你会？",
+            options: [
+                { text: "大吼：“笨手笨脚！以后别碰了，越帮越忙！”", type: 1 },
+                { text: "惊慌：“扎到手没？我就说这很危险你别动嘛！”", type: 2 },
+                { text: "看一眼：“自己扫干净，别扎到我就行。”", type: 3 },
+                { text: "冷静说：“没关系，打扫干净，下次注意手法。”", type: 4 },
+                { text: "确认安全：“没受伤就好。谢谢你帮妈妈分担，碎碎平安。”", type: 5 }
+            ]
+        },
+        {
+            q: "9. 孩子想学架子鼓，你觉得影响学习且太吵，你会？",
+            options: [
+                { text: "“学什么架子鼓，不务正业！给我去补英语。”", type: 1 },
+                { text: "“多吵啊，邻居投诉怎么办？而且你三分钟热度...”", type: 2 },
+                { text: "“你有钱自己去报，我不管接送。”", type: 3 },
+                { text: "“如果能保证不影响成绩且坚持一年，可以商量。”", type: 4 },
+                { text: "“很酷！我们制定个时间表，既不扰民又能享受音乐。”", type: 5 }
+            ]
+        },
+        {
+            q: "10. 假如孩子早恋被老师叫家长，回家后你会？",
+            options: [
+                { text: "暴怒，没收手机，切断联系，甚至动手。", type: 1 },
+                { text: "哭诉：“你才多大啊，这会毁了你一辈子的！”", type: 2 },
+                { text: "老师大惊小怪，现在孩子都早熟。", type: 3 },
+                { text: "谈话：“什么是喜欢？现在的感情和未来规划如何平衡？”", type: 4 },
+                { text: "“谢谢你面对。美好感情是动力，妈妈和你分享我的初恋...”", type: 5 }
+            ]
+        },
+        // --- 新增：日常生活与习惯 (11-15) ---
+        {
+            q: "11. 早上叫孩子起床，叫了三次他还没动，你会？",
+            options: [
+                { text: "直接掀被子，大声吼叫把他拽起来。", type: 1 },
+                { text: "一边给他找衣服一边念叨：“迟到了迟到了，快点啊！”", type: 2 },
+                { text: "不叫了，迟到让他自己被老师罚。", type: 3 },
+                { text: "把闹钟放到他耳边，提醒：“离出门还有10分钟。”", type: 4 },
+                { text: "轻拍他：“昨晚睡晚了很困吧？但今天有重要课程哦。”", type: 5 }
+            ]
+        },
+        {
+            q: "12. 孩子挑食，把不爱吃的青菜偷偷扔掉，你会？",
+            options: [
+                { text: "逼着他捡起来吃掉：“谁知盘中餐粒粒皆辛苦！”", type: 1 },
+                { text: "“不吃青菜怎么长高？会生病的，求你吃一口吧。”", type: 2 },
+                { text: "不吃就不吃，反正饿的是他。", type: 3 },
+                { text: "告诉他：“营养需要均衡，你可以选择吃茎还是吃叶。”", type: 4 },
+                { text: "研究新做法，做成蔬菜饼：“我们也来尝尝这个新口味。”", type: 5 }
+            ]
+        },
+        {
+            q: "13. 孩子周末只想躺着发呆，什么也不干，你会？",
+            options: [
+                { text: "看不惯：“起来！去背单词，小小年纪这就学会摆烂了？”", type: 1 },
+                { text: "担心：“是不是生病了？还是抑郁了？怎么一点活力没有？”", type: 2 },
+                { text: "正好我也想躺着，各玩各的。", type: 3 },
+                { text: "询问：“你是需要在休息充电吗？大概需要多久？”", type: 4 },
+                { text: "倒杯水给他：“有时候发发呆挺舒服的，放松一下吧。”", type: 5 }
+            ]
+        },
+        {
+            q: "14. 孩子房间乱得像猪窝，你会？",
+            options: [
+                { text: "冲进去全部扔出来：“给你10分钟整理好，否则全扔掉！”", type: 1 },
+                { text: "一边帮他收拾一边抱怨：“我就是你的保姆，累死我算了。”", type: 2 },
+                { text: "把门关上，眼不见为净。", type: 3 },
+                { text: "约定规则：“公共区域保持整洁，你房间只要不发臭随你。”", type: 4 },
+                { text: "提议：“这周日我们一起大扫除？整理好心情也会变好。”", type: 5 }
+            ]
+        },
+        {
+            q: "15. 孩子出门忘了带水壶，你会？",
+            options: [
+                { text: "骂他：“脑子长哪去了？每次都要我操心！”", type: 1 },
+                { text: "赶紧追上去送：“哎呀没水喝中暑怎么办！”", type: 2 },
+                { text: "忘了就渴着，长个记性。", type: 3 },
+                { text: "电话告诉他：“你需要自己解决喝水问题，买水或借水。”", type: 4 },
+                { text: "安慰：“下次出门前我们可以一起检查清单。”", type: 5 }
+            ]
+        },
+        // --- 新增：学习与作业深水区 (16-20) ---
+        {
+            q: "16. 辅导作业时，孩子一道简单的题教了三遍还不会，你会？",
+            options: [
+                { text: "拍桌子：“你是猪吗？刚才不是讲了吗！”", type: 1 },
+                { text: "焦虑：“这基础这么差，以后升学考试可咋办啊。”", type: 2 },
+                { text: "玩手机：“你自己想吧，想出来再叫我。”", type: 3 },
+                { text: "深呼吸，换种讲法：“可能这种逻辑你不理解，我们换个图示。”", type: 4 },
+                { text: "暂停一下：“我看我们都累了，喝口水，换个脑子再看。”", type: 5 }
+            ]
+        },
+        {
+            q: "17. 老师发微信说孩子上课走神，你会？",
+            options: [
+                { text: "回家立刻审讯：“老师告状了，你上课魂丢哪去了？”", type: 1 },
+                { text: "回复老师一大段道歉，回家不停问孩子原因。", type: 2 },
+                { text: "没回老师消息，觉得老师事多。", type: 3 },
+                { text: "问孩子：“老师说你今天状态不好，发生什么事了吗？”", type: 4 },
+                { text: "先感谢老师反馈，回家观察孩子睡眠和情绪再沟通。", type: 5 }
+            ]
+        },
+        {
+            q: "18. 孩子说：“我不想上学了，读书没意思”，你会？",
+            options: [
+                { text: "“不上学你去吃屎啊？必须去！”", type: 1 },
+                { text: "吓哭了：“你别吓妈妈，不上学这辈子就完了。”", type: 2 },
+                { text: "“行啊，别去，我看你饿死在家里。”", type: 3 },
+                { text: "理性分析：“不上学可以，但你需要有生存计划，我们谈谈。”", type: 4 },
+                { text: "抱抱他：“听起来你在学校遇到了很难过的事，愿意说说吗？”", type: 5 }
+            ]
+        },
+        {
+            q: "19. 孩子字写得太丑，你会？",
+            options: [
+                { text: "撕掉重写：“写得像鸡爪子，重写！”", type: 1 },
+                { text: "“字如其人啊，这字卷面分要扣光的，练练吧。”", type: 2 },
+                { text: "能看懂就行，不管。", type: 3 },
+                { text: "每天规定练字15分钟，不求多但求好。", type: 4 },
+                { text: "找出写得最好的一个字夸奖：“这个字结构很棒，多写几个这样的。”", type: 5 }
+            ]
+        },
+        {
+            q: "20. 临近考试，孩子还在看课外书，你会？",
+            options: [
+                { text: "没收课外书：“考完试再看！现在复习！”", type: 1 },
+                { text: "“祖宗哎，火烧眉毛了你还看闲书？”", type: 2 },
+                { text: "不复习拉倒，考差了别找我。", type: 3 },
+                { text: "提醒：“复习计划完成了吗？如果完成了可以看。”", type: 4 },
+                { text: "“看书放松一下挺好，但也别忘了明天的战斗哦。”", type: 5 }
+            ]
+        },
+        // --- 新增：社交与冲突 (21-25) ---
+        {
+            q: "21. 孩子被同学嘲笑穿得土，回家哭，你会？",
+            options: [
+                { text: "“哭什么哭？学习好才是硬道理，别搞那些虚荣的。”", type: 1 },
+                { text: "“哎呀谁欺负你？我去学校找老师！”", type: 2 },
+                { text: "“别理他们就行了。”", type: 3 },
+                { text: "“你觉得土吗？审美是主观的，重要的是你自己怎么看。”", type: 4 },
+                { text: "抱紧他：“被嘲笑一定很难过。但在妈妈眼里你很帅/美。”", type: 5 }
+            ]
+        },
+        {
+            q: "22. 去亲戚家，孩子躲在身后不肯打招呼，你会？",
+            options: [
+                { text: "推他一把：“哑巴啦？快叫人！真没礼貌。”", type: 1 },
+                { text: "尴尬解释：“这孩子就是内向，胆子小，别见怪。”", type: 2 },
+                { text: "自己玩手机，不管孩子叫不叫。", type: 3 },
+                { text: "不强迫，事后告诉他：“打招呼是基本礼仪，希望能改进。”", type: 4 },
+                { text: "微笑替他解围：“他可能还没准备好，一会熟悉了就好。”", type: 5 }
+            ]
+        },
+        {
+            q: "23. 孩子和最好的朋友吵架闹掰了，你会？",
+            options: [
+                { text: "“早让你别跟他玩，断了正好。”", type: 1 },
+                { text: "“哎呀多大点事，快去道个歉和好吧。”", type: 2 },
+                { text: "小孩子过家家，过两天就好了。", type: 3 },
+                { text: "问：“这次冲突中你觉得谁的责任更大？”", type: 4 },
+                { text: "“失去朋友很痛心吧？妈妈陪着你，想哭就哭一会。”", type: 5 }
+            ]
+        },
+        {
+            q: "24. 孩子不想参加学校的集体活动，你会？",
+            options: [
+                { text: "“必须去！要有集体荣誉感，不能搞特殊。”", type: 1 },
+                { text: "“大家都去你不去，会被孤立的呀。”", type: 2 },
+                { text: "不去就不去，在家省事。", type: 3 },
+                { text: "了解原因：“是因为不喜欢活动内容还是人际关系？”", type: 4 },
+                { text: "尊重选择：“如果你真的感到不适，我们就不去，做点别的。”", type: 5 }
+            ]
+        },
+        {
+            q: "25. 孩子被老师冤枉了，回来很愤怒，你会？",
+            options: [
+                { text: "“苍蝇不叮无缝的蛋，你肯定也有问题！”", type: 1 },
+                { text: "“忍忍吧，得罪老师没好果子吃。”", type: 2 },
+                { text: "哦了一声，继续看电视。", type: 3 },
+                { text: "“把事情经过写下来，明天我陪你去学校沟通澄清。”", type: 4 },
+                { text: "坚定站在孩子这边：“我相信你。这种委屈我们不能白受。”", type: 5 }
+            ]
+        },
+        // --- 新增：电子产品与娱乐 (26-30) ---
+        {
+            q: "26. 孩子在玩王者荣耀，你喊他吃饭他没听见，你会？",
+            options: [
+                { text: "过去直接关掉电源/抢手机。", type: 1 },
+                { text: "大喊大叫：“饭都凉了！还要不要胃了！”", type: 2 },
+                { text: "自己先吃，吃完收拾桌子不给他留。", type: 3 },
+                { text: "走过去拍拍他，示意暂停，指指饭桌。", type: 4 },
+                { text: "等他这局结束（几分钟），平和地说：“下局别开了，来吃饭。”", type: 5 }
+            ]
+        },
+        {
+            q: "27. 发现孩子偷偷用零花钱给主播打赏/充值游戏，你会？",
+            options: [
+                { text: "暴打一顿：“败家子！钱是大风刮来的吗？”", type: 1 },
+                { text: "痛心疾首：“你怎么能这样骗妈妈的钱...”", type: 2 },
+                { text: "没发现，或者觉得钱不多无所谓。", type: 3 },
+                { text: "严肃冻结零花钱，并要求他做家务偿还这笔钱。", type: 4 },
+                { text: "温和而坚定：“这笔钱超出了你的支配权。我们需要讨论金钱观。”", type: 5 }
+            ]
+        },
+        {
+            q: "28. 孩子想当游戏主播或网红，不想考大学，你会？",
+            options: [
+                { text: "“做梦！那是正经工作吗？给我老实读书。”", type: 1 },
+                { text: "“那行当这碗饭吃不长久的，还是考公稳当啊。”", type: 2 },
+                { text: "嘲笑：“就你？算了吧。”", type: 3 },
+                { text: "“查查行业数据，做个职业规划PPT说服我。”", type: 4 },
+                { text: "“有梦想是好事。我们试着运营个账号，看看真实难度如何？”", type: 5 }
+            ]
+        },
+        {
+            q: "29. 周末孩子想去漫展（Cosplay），你觉得那是奇装异服，你会？",
+            options: [
+                { text: "禁止：“不伦不类，像什么样子，不许去！”", type: 1 },
+                { text: "“那地方乱得很，坏人多，还是别去了。”", type: 2 },
+                { text: "不管，只要别让我出钱。", type: 3 },
+                { text: "约定：“可以去，但要注意安全，晚上6点前必须回家。”", type: 4 },
+                { text: "好奇：“那是你的爱好圈子？注意安全，回来给我看照片。”", type: 5 }
+            ]
+        },
+        {
+            q: "30. 孩子在网上认识了网友，想见面，你会？",
+            options: [
+                { text: "绝对不行！腿给你打断！", type: 1 },
+                { text: "“全是骗子！会被拐卖的！你是傻子吗？”", type: 2 },
+                { text: "不知道他在网恋/见网友。", type: 3 },
+                { text: "科普安全知识：“见面必须在公共场合，保持手机畅通。”", type: 4 },
+                { text: "“理解你想见朋友。为了安全，妈妈陪你远远地看着，不打扰你们。”", type: 5 }
+            ]
+        },
+        // --- 新增：亲子沟通与情绪 (31-35) ---
+        {
+            q: "31. 你工作很累回家，孩子还在那吵闹，你会？",
+            options: [
+                { text: "爆发：“给我闭嘴！烦不烦啊！”", type: 1 },
+                { text: "抱怨：“妈累死累活为了谁？你能不能懂点事？”", type: 2 },
+                { text: "躲进房间锁门，戴耳机。", type: 3 },
+                { text: "表达需求：“我现在能量很低，需要安静半小时，请配合。”", type: 4 },
+                { text: "蹲下来：“妈妈今天很累，能抱抱我充个电吗？”", type: 5 }
+            ]
+        },
+        {
+            q: "32. 孩子指出你的错误（比如你也玩手机），你会？",
+            options: [
+                { text: "恼羞成怒：“我是大人你是小孩！你能比吗？”", type: 1 },
+                { text: "转移话题：“你作业写完了吗就管我？”", type: 2 },
+                { text: "假装没听见。", type: 3 },
+                { text: "承认：“确实，我违反了规则。我放下，你也放下。”", type: 4 },
+                { text: "大方道歉：“谢谢你提醒我。妈妈也需要自律。”", type: 5 }
+            ]
+        },
+        {
+            q: "33. 孩子跟你分享班级八卦，你觉得很无聊，你会？",
+            options: [
+                { text: "打断：“有这心思多背两个单词好不好？”", type: 1 },
+                { text: "敷衍：“嗯嗯，哦哦。”（眼睛看手机）", type: 2 },
+                { text: "根本没在听。", type: 3 },
+                { text: "虽然无聊但礼貌听完：“原来是这样啊。”", type: 4 },
+                { text: "放下手头的事，看着他眼睛：“听起来很有趣，后来呢？”", type: 5 }
+            ]
+        },
+        {
+            q: "34. 孩子问：“我们家有钱吗？”，你会？",
+            options: [
+                { text: "“这不是你该操心的，你的任务是学习。”", type: 1 },
+                { text: "哭穷：“没钱，咱家很穷，所以你要省着花。”", type: 2 },
+                { text: "乱回答：“还可以吧。”", type: 3 },
+                { text: "如实相告：“我们是中等收入，满足生活没问题，但要规划。”", type: 4 },
+                { text: "借机财商教育：“钱是资源。你想知道具体哪方面的开销？”", type: 5 }
+            ]
+        },
+        {
+            q: "35. 孩子对你说：“我讨厌你！”，你会？",
+            options: [
+                { text: "扇巴掌/大骂：“白眼狼！养你有什么用！”", type: 1 },
+                { text: "伤心欲绝：“我心都碎了，你怎么能这么说妈妈...”", type: 2 },
+                { text: "冷笑：“正好，我也讨厌你。”", type: 3 },
+                { text: "冷静：“这是气话。等你冷静了我们再谈。”", type: 4 },
+                { text: "接纳情绪：“我知道你现在很生气。即使你讨厌我，我也爱你。”", type: 5 }
+            ]
+        },
+        // --- 新增：道德与隐私 (36-40) ---
+        {
+            q: "36. 发现孩子偷拿了家里的钱（数额不大），你会？",
+            options: [
+                { text: "打一顿：“小时偷针大时偷金！那是小偷行为！”", type: 1 },
+                { text: "痛哭：“家里缺你吃穿了吗？为什么要偷啊？”", type: 2 },
+                { text: "没发现，或觉得也没多少钱。", type: 3 },
+                { text: "严肃对谈：扣除零花钱，并讨论为什么需要这笔钱。", type: 4 },
+                { text: "“你需要钱可以跟我们商量。偷拿破坏了信任，我们怎么修复？”", type: 5 }
+            ]
+        },
+        {
+            q: "37. 孩子洗澡时，你会？",
+            options: [
+                { text: "随时推门进去拿东西，觉得那是自己孩子没关系。", type: 1 },
+                { text: "如果不回答就担心是不是晕倒了，不停敲门。", type: 2 },
+                { text: "不管不顾。", type: 3 },
+                { text: "敲门并等待允许才进入。", type: 4 },
+                { text: "尊重隐私，哪怕是同性父母也尽量回避。", type: 5 }
+            ]
+        },
+        {
+            q: "38. 孩子撒谎说作业写完了，其实没写，被你发现，你会？",
+            options: [
+                { text: "暴揍：“竟敢骗我！罪加一等！”", type: 1 },
+                { text: "“你怎么变成谎话精了？妈妈好失望。”", type: 2 },
+                { text: "懒得管，明天让老师收拾他。", type: 3 },
+                { text: "惩罚：“因为撒谎，取消本周游戏时间。作业必须补完。”", type: 4 },
+                { text: "探究原因：“是不是作业太难或太多？撒谎是为了逃避责罚吗？”", type: 5 }
+            ]
+        },
+        {
+            q: "39. 孩子想纹身或染很夸张的头发，你会？",
+            options: [
+                { text: "绝不允许！除非断绝母子关系。", type: 1 },
+                { text: "“像个小流氓一样，以后怎么找工作啊。”", type: 2 },
+                { text: "随他去，只要学校不退学。", type: 3 },
+                { text: "告知后果：“如果你能承担学校的处分和他人眼光，是你自己的事。”", type: 4 },
+                { text: "买纹身贴或一次性染发剂：“先试试效果？看看是不是真喜欢。”", type: 5 }
+            ]
+        },
+        {
+            q: "40. 你和伴侣吵架了，孩子在旁边看着，你会？",
+            options: [
+                { text: "拉孩子站队：“你看你爸/妈这副德行！”", type: 1 },
+                { text: "当着孩子面哭诉委屈。", type: 2 },
+                { text: "无视孩子的惊恐，继续吵。", type: 3 },
+                { text: "让孩子回房间：“这是大人的事，我们自己解决。”", type: 4 },
+                { text: "事后向孩子解释：“刚才爸妈情绪失控了，对不起吓到你了，我们会处理好。”", type: 5 }
+            ]
+        },
+        // --- 新增：深度自我觉察 (41-50) ---
+        {
+            q: "41. 当孩子让你失望时，你内心真实的声音是？",
+            options: [
+                { text: "“这孩子算是废了，没救了。”", type: 1 },
+                { text: "“是不是我哪里做错了？我是个失败的妈妈。”", type: 2 },
+                { text: "“无所谓，儿孙自有儿孙福。”", type: 3 },
+                { text: "“这是一个问题，我们需要找方法解决它。”", type: 4 },
+                { text: "“这也是他成长的必经之路，我要更有耐心。”", type: 5 }
+            ]
+        },
+        {
+            q: "42. 周末本想睡懒觉，孩子却早起乒乒乓乓，你会？",
+            options: [
+                { text: "起床吼：“有没有公德心！全家都得陪你醒？”", type: 1 },
+                { text: "忍着怒气起床做早饭，一边叹气。", type: 2 },
+                { text: "蒙头继续睡，不管。", type: 3 },
+                { text: "前一晚约定好：“明早我想睡懒觉，请保持安静。”", type: 4 },
+                { text: "醒来虽然困，但想：“孩子真有活力。”", type: 5 }
+            ]
+        },
+        {
+            q: "43. 孩子想帮你做饭，结果把厨房搞得一团糟，你会？",
+            options: [
+                { text: "“出去出去！别在这添乱！”", type: 1 },
+                { text: "“哎呀这油多难擦啊，累死我了。”", type: 2 },
+                { text: "看都不看一眼。", type: 3 },
+                { text: "“谢谢帮忙，但清理厨房也是做饭的一部分，请收拾好。”", type: 4 },
+                { text: "“哇，谢谢你做饭！乱了没关系，我们一起像玩游戏一样收拾它。”", type: 5 }
+            ]
+        },
+        {
+            q: "44. 如果有时光机，回到孩子刚出生那年，你会？",
+            options: [
+                { text: "立规矩要趁早，不能惯着。", type: 1 },
+                { text: "更精细地照顾他，不让他受一点苦。", type: 2 },
+                { text: "还是那样带吧，顺其自然。", type: 3 },
+                { text: "阅读更多育儿书，科学养育。", type: 4 },
+                { text: "多抱抱他，多享受亲子时光，少焦虑。", type: 5 }
+            ]
+        },
+        {
+            q: "45. 孩子送了你一个很丑的手工礼物，你会？",
+            options: [
+                { text: "“做作业没见你这么用心，尽搞些没用的。”", type: 1 },
+                { text: "强颜欢笑，转头放在角落。", type: 2 },
+                { text: "“哦，放那吧。”", type: 3 },
+                { text: "“谢谢你的心意。”（礼貌收下）", type: 4 },
+                { text: "像收到珍宝一样：“天哪，这是你亲手做的？我太喜欢了！”（摆在显眼处）", type: 5 }
+            ]
+        },
+        {
+            q: "46. 孩子对某个话题（如恐龙、奥特曼）很痴迷，不停跟你说，你会？",
+            options: [
+                { text: "“闭嘴，讲这些对学习有用吗？”", type: 1 },
+                { text: "“嗯嗯嗯...”（心思完全不在）", type: 2 },
+                { text: "嫌烦走开。", type: 3 },
+                { text: "听一会，然后说：“时间到了，该做正事了。”", type: 4 },
+                { text: "认真倾听并提问：“原来奥特曼还有这么多区别？教教我。”", type: 5 }
+            ]
+        },
+        {
+            q: "47. 你答应周末带孩子去公园，结果临时加班，你会？",
+            options: [
+                { text: "“我是去工作赚钱！又不是去玩，你闹什么？”", type: 1 },
+                { text: "愧疚买一堆礼物补偿。", type: 2 },
+                { text: "忘了这件事，也不解释。", type: 3 },
+                { text: "道歉并改期：“对不起我失信了，我们改到下周六，拉钩。”", type: 4 },
+                { text: "真诚道歉并共情：“我知道你很失望，我也很遗憾。晚上回来补偿个电影？”", type: 5 }
+            ]
+        },
+        {
+            q: "48. 孩子如果长大后成为了一个普通平凡的人，你会？",
+            options: [
+                { text: "无法接受，我的孩子必须是精英。", type: 1 },
+                { text: "担心他过得苦，会被人看不起。", type: 2 },
+                { text: "普通就普通呗，大家都普通。", type: 3 },
+                { text: "只要他能自食其力，不违法乱纪就行。", type: 4 },
+                { text: "只要他健康快乐，内心丰盈，普通也是一种幸福。", type: 5 }
+            ]
+        },
+        {
+            q: "49. 亲戚问孩子成绩，孩子考得不好，你会？",
+            options: [
+                { text: "抢答并数落：“别提了，笨得要死。”", type: 1 },
+                { text: "尴尬支吾，想找个地缝钻进去。", type: 2 },
+                { text: "不关你事。", type: 3 },
+                { text: "“这次没发挥好，下次会进步的。”", type: 4 },
+                { text: "护短：“成绩是隐私。但他最近画画进步很大哦。”", type: 5 }
+            ]
+        },
+        {
+            q: "50. 做完这50道题，你现在的感受是？",
+            options: [
+                { text: "这些题好多都是废话，但我选的肯定没问题。", type: 1 },
+                { text: "好焦虑，觉得自己好多地方都做错了，怎么办？", type: 2 },
+                { text: "随便选选，终于做完了。", type: 3 },
+                { text: "挺客观的，有些地方确实值得反思。", type: 4 },
+                { text: "很感恩有这个机会复盘，我知道接下来该怎么爱孩子了。", type: 5 }
+            ]
+        }
+    ];
+
+    // 结果数据
+    const results = {
+        1: {
+            title: "控制型家长——以爱为名的“监狱长”",
+            quotes: "“我还没说完，你不许插嘴！”<br>“我是你妈，听我的没错！”",
+            harm: "在你的高压统治下，孩子的“自我”是破碎的。短期内他可能顺从，但青春期极易爆发式“复仇”，或形成讨好型人格，成年后容易被PUA。",
+            advice: "把选择权还给孩子。下次想发号施令时，把句号改成问号：“关于这件事，你的想法是什么？”",
+            ctaText: "测出这个结果，说明亲子关系已亮红灯！不想让孩子彻底爆发，请立刻领取《萨提亚·家长情绪急救包》。",
+            code: "急救包"
+        },
+        2: {
+            title: "焦虑型家长——传递恐惧的“直升机”",
+            quotes: "“你现在不努力，以后只能去扫大街！”<br>“我就急得心脏病要犯了。”",
+            harm: "你把对未来的恐惧投射给了孩子。孩子内耗严重，觉得“成长”充满危险。长期容易导致考前焦虑、强迫行为，甚至因为压力过大而彻底“躺平”。",
+            advice: "先处理心情，再处理事情。孩子的未来不会因为一次失误毁掉，但会因为一个情绪不稳定的妈妈而毁掉。",
+            ctaText: "焦虑是孩子的毒药。你需要学会“情绪暂停”。免费领取《3分钟化解焦虑话术》。",
+            code: "急救包"
+        },
+        3: {
+            title: "放任型家长——缺乏边界的“隐形人”",
+            quotes: "“别来烦我，你自己看着办。”<br>“树大自然直。”",
+            harm: "你以为给了自由，其实给了“被忽视感”。孩子感受不到关注，可能会故意制造麻烦博眼球，或者内心深处觉得自己“不重要”，产生情感淡漠。",
+            advice: "爱是需要“在场”的。每天哪怕15分钟，放下手机，全心全意陪孩子做一件他喜欢的事。",
+            ctaText: "孩子缺的不是自由，是有效关注。领取《给孩子立规矩的黄金法则》视频课。",
+            code: "规矩"
+        },
+        4: {
+            title: "民主型家长——理性但冰冷的“谈判官”",
+            quotes: "“我们要讲道理，逻辑对吗？”<br>“按照约定，你要受罚。”",
+            harm: "家里太像法庭了，缺了点人情味。孩子觉得你像机器人，遇到情感挫折不敢告诉你，怕被“讲道理”。容易变成高智商、低情商的“精致利己主义者”。",
+            advice: "先通情，再达理。在讲道理之前，先抱抱孩子，告诉他：“我知道你很难过。”",
+            ctaText: "赢了道理，输了感情？学习如何走进孩子心里，领取《高情商父母共情沟通30句》。",
+            code: "共情"
+        },
+        5: {
+            title: "理想型家长——温暖而有力的“园丁”",
+            quotes: "“无论发生什么，爸妈永远支持你。”<br>“我相信你能处理好。”",
+            harm: "恭喜你！你是那10%的智慧父母。你既给了孩子无条件的爱，又设立了清晰边界。在你的滋养下，孩子拥有强大的心理韧性。",
+            advice: "请继续保持！你是孩子的幸运。如果你想帮助更多家长，欢迎加入我们的社群。",
+            ctaText: "你做得很好！欢迎加入【智慧父母进化营】，与其他优秀家长一起交流，获取更多进阶资源。",
+            code: "进化营"
+        }
+    };
+
+    // 逻辑变量
+    let currentQuestionIndex = 0;
+    let scores = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    let historyStack = []; 
+    
+    // ✅ 微信号配置
+    const wechatId = "Zoe_mm0609"; 
+
+    // 开始测试
+    function startQuiz() {
+        document.getElementById('landing-page').style.display = 'none';
+        document.getElementById('quiz-container').style.display = 'block';
+        renderQuestion();
+    }
+
+    // 渲染题目
+    function renderQuestion() {
+        const qData = questions[currentQuestionIndex];
+        
+        document.getElementById('curr-num').textContent = currentQuestionIndex + 1;
+        
+        const prevBtn = document.getElementById('prev-btn');
+        if (currentQuestionIndex === 0) {
+            prevBtn.style.visibility = 'hidden';
+        } else {
+            prevBtn.style.visibility = 'visible';
+        }
+
+        document.getElementById('question-text').textContent = qData.q;
+        document.getElementById('progress').style.width = ((currentQuestionIndex) / questions.length * 100) + '%';
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        qData.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.textContent = opt.text;
+            btn.onclick = () => handleAnswer(opt.type);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    // 处理回答
+    function handleAnswer(type) {
+        historyStack.push(type); 
+        scores[type]++;
+        currentQuestionIndex++;
+        
+        if (currentQuestionIndex < questions.length) {
+            renderQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    // 上一题功能
+    function prevQuestion() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            const lastType = historyStack.pop(); 
+            scores[lastType]--; 
+            renderQuestion();
+        }
+    }
+
+    // 显示结果
+    function showResult() {
+        document.getElementById('quiz-container').style.display = 'none';
+        document.getElementById('result-container').style.display = 'block';
+        
+        let maxType = 1;
+        let maxScore = 0;
+        
+        // 结果计算逻辑：分数相同取类型序号较小的（倾向于显示问题）
+        for (let type = 1; type <= 5; type++) {
+            if (scores[type] > maxScore) {
+                maxScore = scores[type];
+                maxType = type;
+            }
+        }
+
+        const resultData = results[maxType];
+        document.getElementById('result-title').textContent = resultData.title;
+        document.getElementById('result-quotes').innerHTML = resultData.quotes;
+        document.getElementById('result-harm').textContent = resultData.harm;
+        document.getElementById('result-advice').textContent = resultData.advice;
+        document.getElementById('cta-text').textContent = resultData.ctaText;
+        document.getElementById('cta-code').textContent = resultData.code;
+    }
+
+    // 复制微信号功能
+    function copyWechat() {
+        const input = document.createElement('input');
+        input.setAttribute('value', wechatId);
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        alert('慧敏老师微信号【' + wechatId + '】已复制！\n请前往微信-添加朋友-粘贴搜索');
+    }
+</script>
+
+</body>
+</html>
